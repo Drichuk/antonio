@@ -1,0 +1,513 @@
+```
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Transforme sua saúde e atinja seus objetivos de fitness com dicas e conselhos diários.">
+    <meta name="keywords" content="saúde, fitness, nutrição, treinos, bem-estar">
+    <title>Saúde e Fitness</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1DB954;
+            --secondary-color: #191414;
+            --dark-color: #000000;
+            --light-color: #121212;
+            --accent-color: #1DB954;
+            --card-bg: rgba(40,40,40,0.85);
+            --blur-bg: rgba(30, 39, 46, 0.85);
+            --text-dark: #2d3436;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--blur-bg);
+            backdrop-filter: blur(5px);
+            z-index: 0;
+        }
+        header h1 {
+            position: relative;
+            z-index: 1;
+        }
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        nav {
+            background-color: var(--dark-color);
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+        nav a {
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            margin: 0 5px;
+            font-weight: 500;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        nav a:hover {
+            background-color: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px 100px;
+        }
+        .section {
+            margin-bottom: 50px;
+            padding: 30px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .section h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+            bottom: 0;
+        }
+        footer p {
+            margin: 0;
+        }
+        .cta-button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        .cta-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background: var(--dark-color);
+            margin: 15% auto;
+            padding: 30px;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+            color: white;
+            animation: modalFadeIn 0.4s;
+        }
+        @keyframes modalFadeIn {
+            from {opacity: 0; transform: translateY(-50px)}
+            to {opacity: 1; transform: translateY(0)}
+        }
+        .image-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .quote {
+            font-style: italic;
+            color: var(--primary-color);
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.2rem;
+        }
+        
+        .mindset-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .mindset-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid var(--accent-color);
+        }
+        
+        .progress-tracker {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 2rem;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: #333;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-color);
+            border-radius: 5px;
+        }
+        
+        .community-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 2rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <video autoplay muted loop id="header-video">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-woman-doing-squats-at-home-45437-large.mp4" type="video/mp4">
+        </video>
+        <div class="header-content">
+            <h1>REVOLUCIONE SUA VIDA FITNESS</h1>
+            <p class="subtitle">Transformação física personalizada com metodologia cientificamente comprovada</p>
+            <div class="cta-row">
+                <button class="cta-button primary">Comece Agora</button>
+                <button class="cta-button secondary">Planos Personalizados</button>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <a href="#home">Início</a>
+        <a href="#workouts">Treinos</a>
+        <a href="#nutrition">Nutrição</a>
+        <a href="#mindset">Mindset</a>
+        <a href="#progress">Acompanhamento</a>
+        <a href="#community">Comunidade</a>
+        <a href="#contact">Contato</a>
+    </nav>
+
+    <main class="content">
+        <section id="home" class="section">
+            <h2>Bem-vindo ao Saúde e Fitness</h2>
+            <p>Este site foi criado para fornecer informações sobre como manter um estilo de vida saudável. Aqui você encontrará recursos para melhorar sua alimentação, treinos, motivação e muito mais.</p>
+        </section>
+
+        <section id="workouts" class="section">
+            <h2>Treinos para Todos</h2>
+            <p class="intro-text">Nossa metodologia adaptável garante resultados em qualquer nível. Criamos programas personalizados com base em:</p>
+            
+            <div class="grid-container">
+                <div class="card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/56409601-86e5-4b16-8e5a-a5c335d81785.png" alt="Treino iniciante" class="card-img">
+                    <div class="card-body">
+                        <h3>Treino para Iniciantes</h3>
+                        <ul>
+                            <li>Programa de 8 semanas</li>
+                            <li>3 dias/semana</li>
+                            <li>Acompanhamento por vídeo</li>
+                            <li>Foco em técnica correta</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/51bde127-c959-431f-83fe-35dcb8510132.png" alt="Treino intermediário" class="card-img">
+                    <div class="card-body">
+                        <h3>Treino Intermediário</h3>
+                        <ul>
+                            <li>Programa de 12 semanas</li>
+                            <li>4 dias/semana</li>
+                            <li>Foco em hipertrofia</li>
+                            <li>Periodização inteligente</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/3da81fd3-a6aa-49a5-ad6a-7eebad364779.png" alt="Treino avançado" class="card-img">
+                    <div class="card-body">
+                        <h3>Treino Avançado</h3>
+                        <ul>
+                            <li>Programa de 16 semanas</li>
+                            <li>5-6 dias/semana</li>
+                            <li>Foco em performance</li>
+                            <li>Periodização avançada</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stats-tabs">
+                <div class="tab-header">
+                    <button class="tab-btn active" data-tab="results">Resultados</button>
+                    <button class="tab-btn" data-tab="methodology">Metodologia</button>
+                    <button class="tab-btn" data-tab="science">Ciência</button>
+                </div>
+                
+                <div class="tab-content active" id="results">
+                    <div class="stat-card">
+                        <h4>+92%</h4>
+                        <p>Taxa de satisfação</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>+15%</h4>
+                        <p>Ganho muscular médio</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>12-16</h4>
+                        <p>Semanas para resultados visíveis</p>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="methodology">
+                    <p>Nossa metodologia baseia-se em periodização ondulatória diária adaptada às suas necessidades e objetivos específicos.</p>
+                </div>
+                
+                <div class="tab-content" id="science">
+                    <p>Todos os programas são baseados em estudos científicos das melhores universidades de educação física.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="nutrition" class="section">
+            <h2>Nutrition 3.0</h2>
+            <p class="section-intro">A nutrição é responsável por 80% dos seus resultados. Nossos planos alimentares são personalizados por inteligência artificial.</p>
+            
+            <div class="nutrition-grid">
+                <div class="nutri-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/965beea4-968c-4d44-b993-86415ce95ae4.png" alt="Cálculo de Macronutrientes">
+                    <h3>Precisão Nutricional</h3>
+                    <p>Balancedamento automático de proteínas, carboidratos e gorduras com base no seu DNA e objetivos.</p>
+                </div>
+                
+                <div class="nutrition-plan">
+                    <h3>Seu Plano Diário</h3>
+                    <div class="day-plan">
+                        <div class="meal-time">
+                            <h4>Café da Manhã (7:00)</h4>
+                            <p>Ovos orgânicos + Abacate + Pão integral</p>
+                        </div>
+                        <div class="meal-time">
+                            <h4>Pré-Treino (11:30)</h4>
+                            <p>Whey Protein + Banana + Amêndoas</p>
+                        </div>
+                        <!-- More meal times -->
+                    </div>
+                    <button class="btn-generate">Gerar Novo Plano</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="mindset" class="section">
+            <h2>Mindset Vencedor</h2>
+            <div class="mindset-grid">
+                <div class="mindset-card">
+                    <h3>Mentalidade de Crescimento</h3>
+                    <p>Aprenda a desenvolver resiliência mental para superar obstáculos e manter a consistência nos treinos.</p>
+                </div>
+                <div class="mindset-card">
+                    <h3>Hábitos Atômicos</h3>
+                    <p>Como pequenas mudanças diárias levam a resultados extraordinários a longo prazo.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="progress" class="section">
+            <h2>Acompanhe Seu Progresso</h2>
+            <div class="progress-tracker">
+                <div class="tracker-card">
+                    <h3>Seus Números</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%"></div>
+                    </div>
+                    <p>75% do seu objetivo alcançado</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="community" class="section">
+            <h2>Junte-se à Comunidade</h2>
+            <p>Conecte-se com outras pessoas em busca de saúde e bem-estar.</p>
+            <div class="community-stats">
+                <div class="stat-item">
+                    <span class="stat-number">10K+</span>
+                    <span class="stat-label">Membros</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">500+</span>
+                    <span class="stat-label">Depoimentos</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="motivation" class="section">
+            <h2>Motivação</h2>
+            <p class="quote">"A única maneira de fazer um ótimo trabalho é amar o que você faz." - Steve Jobs</p>
+            <p>Encontre a motivação que você precisa para continuar sua jornada de fitness. Lembre-se de que cada pequeno passo conta!</p>
+        </section>
+
+        <section id="contact" class="section">
+            <h2>Entre em Contato</h2>
+            <p>Tem alguma dúvida ou quer compartilhar sua experiência de fitness? Entre em contato conosco!</p>
+            <p>Email: <a href="mailto:contato@saudefitness.com">contato@saudefitness.com</a></p>
+            <button class="cta-button" onclick="openModal()">Assine Agora</button>
+            <div class="modal" id="subscribeModal">
+                <div class="modal-content">
+                    <span class="close-btn" onclick="closeModal()">&times;</span>
+                    <h3>Assine nossa Newsletter</h3>
+                    <form>
+                        <input type="email" placeholder="Seu melhor e-mail" required>
+                        <button type="submit">Assinar</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Saúde e Fitness</h4>
+                <p>Transformando vidas desde 2025</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Links Rápidos</h4>
+                <ul>
+                    <li><a href="#">Planos</a></li>
+                    <li><a href="#">Nutricionistas</a></li>
+                    <li><a href="#">Personal Trainers</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Podcast</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-col newsletter">
+                <h4>Newsletter</h4>
+                <form>
+                    <input type="email" placeholder="Seu email">
+                    <button type="submit">Assinar</button>
+                </form>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Saúde e Fitness - Todos os direitos reservados<br>Criado por Aurelio e Amanda</p>
+            <div class="legal-links">
+                <a href="#">Termos</a> | <a href="#">Privacidade</a>
+            </div>
+        </div>
+    </footer>
+
+<script>
+        function openModal() {
+            document.getElementById('subscribeModal').style.display = 'block';
+        }
+        function closeModal() {
+            document.getElementById('subscribeModal').style.display = 'none';
+        }
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('subscribeModal')) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
+```
